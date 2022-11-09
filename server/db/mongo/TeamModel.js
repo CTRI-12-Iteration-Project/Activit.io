@@ -16,11 +16,11 @@ const TeamModel = new Schema({
   teamActivities: [
     {
       activity: { type: String, required: true },
-      type: {type: String, required: true },
+      type: { type: String, required: true },
       price: { type: Number, required: true },
       participants: { type: Number, required: true },
     },
-  ]
+  ],
 });
 
 // Compile model from schema

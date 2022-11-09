@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect } from 'react';
 import TeamCard from './TeamCard.jsx';
 import { TeamsContext } from '../App.jsx';
 import { Link } from 'react-router-dom';
@@ -12,10 +12,10 @@ function TotalTeamDisplay() {
   const [totalTeams, setUpdateTeams] = React.useState(teamsContextData);
 
   // Goals: Update after we render current users info
-  useEffect(() => setUpdateTeams(teamsContextData), [teamsContextData])
+  useEffect(() => setUpdateTeams(teamsContextData), [teamsContextData]);
 
   // Parse through to create team card displays
-  const teamCardDisplay = totalTeams.map(team => {
+  const teamCardDisplay = totalTeams.map((team) => {
     return (
       <TeamCard
         key={team.team_id}
@@ -23,27 +23,22 @@ function TotalTeamDisplay() {
         teamMembers={team.teamMembers}
         teamActivities={team.teamActivities}
       />
-    )
-  }
-  );
+    );
+  });
 
   return (
     <div className='total-team-display flex-column flex-center container-card'>
       <h1>Total Team Display</h1>
       <Link to='/createTeam'>
-        <button className='button'>
-          Create Team
-        </button>
+        <button className='button'>Create Team</button>
       </Link>
       <div className='teams-scroll-container'>
         <div className='teams-scroll'>
-          {teamCardDisplay.length
-            ? teamCardDisplay
-            : <h2>Make a squad!</h2>}
+          {teamCardDisplay.length ? teamCardDisplay : <h2>Make a squad!</h2>}
         </div>
       </div>
-    </div >
-  )
+    </div>
+  );
 }
 
 export default TotalTeamDisplay;
