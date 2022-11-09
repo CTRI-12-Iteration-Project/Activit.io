@@ -5,6 +5,7 @@ const TeamCard = (props) => {
   console.log('Teamcard props', props)
   // Assemble names into a string
   const members = props.teamMembers.reduce((team, member) => `${team}, ${member}`)
+  // also works {props.teamMembers.join()}
 
   return (
     <div>

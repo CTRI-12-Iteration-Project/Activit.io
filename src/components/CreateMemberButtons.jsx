@@ -18,7 +18,7 @@ const CreateMemberButtons = ({
   setMemberLength,
 }) => {
   console.log('memberLength', memberLength);
-  console.log('memberEntires', memberEntries);
+  console.log('memberEntries', memberEntries);
   return (
     <div>
       <button
