@@ -80,7 +80,10 @@ function App() {
             path='/createTeam'
             element={<CreateTeam sync={syncStatetoDB} username={currentUser} />}
           />
-          <Route path='/teamInfo' element={<TeamInfo sync={syncStatetoDB} />} />
+          <Route
+            path='/teamInfo'
+            element={<TeamInfo sync={syncStatetoDB} username={currentUser} />}
+          />
           <Route
             path='/activities'
             element={<ActivityInfo sync={syncStatetoDB} />}
