@@ -10,10 +10,9 @@ const ActivityInfo = (props) => {
   const totalTeamsArr = useContext(TeamsContext);
 
   // Initial state set to current activities props with associated team information
-  // location.state is passed in from ActivityCard = 
+  // location.state is passed in from ActivityCard =
   const [currActivity, setCurrActivity] = React.useState(location.state);
   console.log('currActivity props', currActivity);
-
 
   const deleteActivity = () => {
     // Alex:Backend DELETE functionality
@@ -30,20 +29,22 @@ const ActivityInfo = (props) => {
     alert('Deleted activity!');
     props.sync(teamsContextClone);
     navigate('/home');
-  }
+  };
 
   // Price tag
   //looked through activites and these seem like good breakpoints
   let price;
-  const activityPrice = currActivity.activity.price
-    if (currActivity.activity.price === 0) price = 'Free!';
-    if (activityPrice > 0 && activityPrice < 0.2) price = '$';
-    if (activityPrice >= 0.2 && activityPrice < 0.4) price = '$$';
-    if (activityPrice >= 0.4 && activityPrice < 0.6) price = '$$$';
-    if (activityPrice >= 0.6 && activityPrice <= 0.8) price = '$$$$';
+  const activityPrice = currActivity.activity.price;
+  if (currActivity.activity.price === 0) price = 'Free!';
+  if (activityPrice > 0 && activityPrice < 0.2) price = '$';
+  if (activityPrice >= 0.2 && activityPrice < 0.4) price = '$$';
+  if (activityPrice >= 0.4 && activityPrice < 0.6) price = '$$$';
+  if (activityPrice >= 0.6 && activityPrice <= 0.8) price = '$$$$';
 
-    // Mapping team members
-    const friendsArr = currActivity.teamMembers.map(name => <li key={name}>{name}</li>);
+  // Mapping team members
+  const friendsArr = currActivity.teamMembers.map((name) => (
+    <li key={name}>{name}</li>
+  ));
 
   return (
     <div className='flex-column flex-center activity-info container-card'>
@@ -53,29 +54,27 @@ const ActivityInfo = (props) => {
       <div className='flex-column list'>
         <h2>Team: {currActivity.teamName}</h2>
         <h2>People i'm going with</h2>
-        <div className='list'>
-        {friendsArr}
-        </div>
+        <div className='list'>{friendsArr}</div>
         <div>
-        <Link to='/home'>
+          {/* This link to home is redundant */}
+          {/* <Link to='/home'> */}
           <button
             className='button'
             onClick={() => {
-              console.log('Going from Activity to Home')
-              navigate('/home')
-            }}>
+              console.log('Going from Activity to Home');
+              navigate('/home');
+            }}
+          >
             Go Back
           </button>
-        </Link>
-        <button
-          className='button align-self-end'
-          onClick={deleteActivity} >
-          Delete Activity
-        </button>
+          {/* </Link> */}
+          <button className='button align-self-end' onClick={deleteActivity}>
+            Delete Activity
+          </button>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default ActivityInfo;
