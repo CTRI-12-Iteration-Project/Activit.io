@@ -5,6 +5,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const boredRouter = require('./routers/boredRouter.js');
 const dbRouter = require('./routers/dbRouter.js');
+// const path = require('path')
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -16,6 +17,7 @@ app.use('/db', dbRouter);
 
 // Catch all to redirect back to index.html
 app.use('*', (req, res) => res.redirect('/'));
+
 
 // Global error handler
 app.use((err, req, res, next) => {
@@ -32,3 +34,5 @@ app.use((err, req, res, next) => {
 app.listen(port, () => {
   console.log(`\u001b[1;35mServer listening at http://localhost:${port}`);
 });
+
+module.exports = app;

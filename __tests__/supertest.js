@@ -1,71 +1,92 @@
 const request = require('supertest');
-const marketList = require('../server/db/markets.dev.json');
-
-const server = 'http://localhost:3000';
+const express = require('express')
+// const server = 'http://localhost:8080';
 
 /**
  * Read the docs! https://www.npmjs.com/package/supertest
 //  */
+const app = require('../server/server.js');
+
 
 describe('Route integration', () => {
-  describe('/', () => {
-    describe('GET', () => {
+  describe('GET, database', () => {
+    describe('should get request for a user/user info', () => {
       // Note that we return the evaluation of `request` here! It evaluates to
       // a promise, so Jest knows not to say this test passes until that
       // promise resolves. See https://jestjs.io/docs/en/asynchronous
-      it('responds with 200 status and text/html content type', () =>
-        request(server)
-          .get('/')
-          .expect('Content-Type', 'text/html; charset=UTF-8')
+      it('responds with 200 status', async () => {
+         const response = await request(app)
+          .get('/db/user/test')
+          expect(response.statusCode).toBe(200)
+        })
+          
+      ;
+    });
+    describe('should get request for teaminfo', () => {
+      it('responds with 200 status', () =>
+        request(app)
+          .get('/db/teaminfo/i5ddjui57lnyf8bkvq23g')
           .expect(200));
     });
   });
 
-  describe('/markets', () => {
-    describe('GET', () => {
-      it('responds with 200 status and application/json content type', () =>
-        request(server)
-          .get('/markets')
-          .expect('Content-Type', 'application/json; charset=utf-8')
-          .expect(200));
-
-      // For this test, you'll need to inspect the body of the response and
-      // ensure it contains the markets list. Check the markets.dev.json file
-      // in the dev database to get an idea of what shape you're expecting.
-      it('markets from "DB" json are in body of response', () =>
-        request(server)
-          .get('/markets')
-          .expect('Content-Type', 'application/json; charset=utf-8')
-          .expect((res) => {
-            expect(typeof res.body).toEqual(typeof marketList);
+  describe('POST, database', () => {
+    describe('should verify user login', () => {
+      it('responds with the username and password', () =>
+        request(app)
+          .post('/db/login')
+          .send({
+            username: 'test',
+            password: 'test'
           })
           .expect(200));
     });
 
-    describe('PUT', () => {
+    describe('should verify user created', () => {
       it('responds with 200 status and application/json content type', () =>
-        request(server)
-          .put('/markets')
-          .send([{ location: 'work please', cards: 15 }])
-          .expect('Content-Type', 'application/json; charset=utf-8')
-          .expect(200));
-
-      it('responds with the updated market list', () =>
-        request(server)
-          .put('/markets')
-          .send([
-            {
-              location: 'Azkaban',
-              cards: 0,
-            },
-          ])
-          .expect((response) => {
-            console.log(marketList);
-            expect(response.body).toEqual(marketList);
+        request(app)
+          .post('/db/register')
+          .send({
+            username: 'servertesting2',
+            password: 'servertesting'
           })
           .expect(200));
-
-      xit('responds to invalid request with 400 status and error message in body', () => {});
+    
+    describe('should verify that activity was added', () => {        
+      it('responds to invalid request with 400 status and error message in body', () => 
+        request(app)
+          .post('/db/addActivity')
+          .send({
+            teamid: 'i5ddjui57lnyf8bkvq23g',
+            password: 'servertesting'
+          })
+          .expect(200));
+    })});
+  });
+  describe('GET, API', () => {
+    describe('should get activity', () => {
+      // Note that we return the evaluation of `request` here! It evaluates to
+      // a promise, so Jest knows not to say this test passes until that
+      // promise resolves. See https://jestjs.io/docs/en/asynchronous
+      it('responds with 200 status', async () => {
+         const response = await request(app)
+          .get('/api/acivity/random')
+          .expect(200);
+          // expect(response.statusCode).toBe(200)
+        });
+    });
+    describe('should get type', () => {
+      it('responds with 200 status', () =>
+        request(app)
+          .get('/api/acivity/type')
+          .expect(200));
+    });
+    describe('should get people', () => {
+      it('responds with 200 status', () =>
+        request(app)
+          .get('/api/acivity/people')
+          .expect(200));
     });
   });
+  
 });

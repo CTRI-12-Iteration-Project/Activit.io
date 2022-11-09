@@ -266,7 +266,7 @@ dbController.updateUser = (req, res, next) => {
   console.log('\n');
   console.log('\n');
   // Log to let us know we're in the controller
-  console.log('\u001b[1;32m dbController.updateUser called ');
+  console.log('\u001b[1:32m dbController.updateUser called ');
 
   // Pull out the team_id and name from res.locals.team_info
   console.log(res.locals.team.team_id);
