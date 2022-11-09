@@ -8,6 +8,7 @@ const cors = require('cors');
 // GET routes /////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 // Route to request user data
+
 router.get('/user/:username', dbController.getUserInfo, (req, res) => {
   return res.status(200).json(res.locals.user_info);
 });
@@ -17,7 +18,6 @@ router.get('/teaminfo/:team_id', dbController.getTeamInfo, (req, res) => {
   return res.status(200).json(res.locals.team_info);
 });
 
-
 ///////////////////////////////////////////////////////////////////////////////
 // POST routes ////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
@@ -26,7 +26,7 @@ router.get('/teaminfo/:team_id', dbController.getTeamInfo, (req, res) => {
 router.post('/login', dbController.verifyUser, (req, res) => {
   // console.log(' Received response from dbController.verifyUser in dbRouter.js ');
   // console.log('res.locals.response: ',res.locals.login_response)
-  return res.status(200).json({login_success: true});
+  return res.status(200).json({ login_success: true });
 });
 
 // Route to add a new user to the database
@@ -35,13 +35,23 @@ router.post('/register', dbController.createUser, (req, res) => {
 });
 
 // Route to add a new team to the database
-router.post('/team', dbController.createTeam, dbController.updateUser, (req, res) => {
-  return res.status(200).json(res.locals.team_info);
-});
+router.post(
+  '/team',
+  dbController.createTeam,
+  dbController.updateUser,
+  (req, res) => {
+    return res.status(200).json(res.locals.team_info);
+  }
+);
 
 router.post('/addActivity', dbController.addActivity, (req, res) => {
   return res.status(200).json(res.locals.team);
-})
+});
 
+///////////////////////////////////////////////////////////////////////////////
+// DELETE routes ////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+router.delete('/team/:id', dbController.deleteTeam);
 
+router.delete('/activity/:id', dbController.deleteActivity);
 module.exports = router;
