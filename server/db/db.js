@@ -9,11 +9,11 @@ require('dotenv').config();
 // Import the database URI from the .env file
 const mongoDB = process.env.MONGO_URI;
 
-console.log('\n');
-console.log('\u001b[1;36mmongoDB: ', mongoDB);
+// console.log('\n');
+// console.log('\u001b[1;36mmongoDB: ', mongoDB);
 
 // Set up mongoose connection
-mongoose.connect(mongoDB, {bufferCommands: false})
+mongoose.connect(mongoDB, {bufferCommands: true})
   .then(() => console.log('\u001b[1;36m ---- Connected to MongoDB ----\n'))
   .catch((err) => console.log('Error connecting to MongoDB: ', err));
 
