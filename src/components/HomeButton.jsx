@@ -12,9 +12,9 @@ function HomeButton() {
         <Link to='/home' className='home-button-link'>
           <button
             className='home-button button'
-            onClick={() => {
-              console.log('Clicking home button');
-            }}
+            // onClick={() => {
+            //   console.log('Clicking home button');
+            // }}
           >
             Home
           </button>
