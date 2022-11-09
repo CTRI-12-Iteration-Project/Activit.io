@@ -280,7 +280,8 @@ dbController.updateUser = (req, res, next) => {
   // Find the user in the DB and insert the team_id into the teams object
   User.findOneAndUpdate(
     { username: username },
-    { $set: { [`teams.${team_id}`]: teamName } }
+    { $set: { [`teams.${team_id}`]: teamName } },
+    { new: true }
   )
     .then((user) => {
       // Log to let us know the user was updated
@@ -338,10 +339,19 @@ dbController.addActivity = (req, res, next) => {
 
 dbController.deleteTeam = async (req, res, next) => {
   try {
-    const team_id = req.params.id;
-    const deletedTeam = await Team.findOneAndDelete({ id: team_id });
-    console.log(team_id);
-    console.log(deletedTeam);
+    const { id, username } = req.params;
+    console.log(id, username);
+    // find one and delete team
+    const deletedTeam = await Team.findOneAndDelete({ _id: id });
+    // update the currentUser
+    const currentUser = await User.findOne({ username });
+    const currentTeams = currentUser.teams;
+    delete currentUser.teams[deletedTeam.team_id];
+    await User.findOneAndUpdate(
+      { username },
+      { teams: currentTeams },
+      { new: true }
+    );
     return res.status(200).json('deleted');
   } catch (err) {
     return next({

@@ -113,14 +113,16 @@ function TeamInfo(props) {
 
   const deleteTeam = async () => {
     console.log('Deleting team:', teamInfo.teamName);
-
+    console.log(location.state);
+    console.log('THEUSERNAME', props.username);
     const deletionClone = [...totalTeamsArr];
     for (let i = 0; i < deletionClone.length; i++) {
       if (deletionClone[i].teamName === teamInfo.teamName) {
         deletionClone.splice(i, 1);
       }
     }
-    await axios.delete(`/db/team/${teamInfo._id.toString()}`);
+    console.log(teamInfo);
+    await axios.delete(`/db/team/${teamInfo._id.toString()}/${props.username}`);
     alert('Team has been deleted!');
     props.sync(deletionClone);
     navigate('/home');
