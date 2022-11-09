@@ -4,10 +4,10 @@ const path = require('path');
 const cors = require('cors');
 // Import mongoose
 const mongoose = require('mongoose');
-require('dotenv').config({path: path.resolve(__dirname, '../../process.env')});
+require('dotenv').config();
 
 // Import the database URI from the .env file
-const mongoDB = process.env.MONGOURI;
+const mongoDB = process.env.MONGO_URI;
 
 console.log('\n');
 console.log('\u001b[1;36mmongoDB: ', mongoDB);

@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const db = require('../db/db.js');
 const bcrypt = require('bcrypt');
 const path = require('path');
-require('dotenv').config({path: path.resolve(__dirname, '../../process.env')});
+require('dotenv').config();
 const saltRounds = process.env.SALT_ROUNDS || 10;
 
 // Access DB and return requested information
